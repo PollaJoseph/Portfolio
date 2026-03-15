@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Polla Joseph Labeeb — Mobile & Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg:        #0a0a0f;
+  --surface:   #11111a;
+  --surface2:  #18182a;
+  --border:    rgba(255,255,255,0.07);
+  --accent:    #5dffb6;
+  --accent2:   #ff6b6b;
+  --accent3:   #6b8cff;
+  --text:      #e8e8f0;
+  --muted:     #7878a0;
+  --mono:      'DM Mono', monospace;
+  --display:   'Syne', sans-serif;
+  --body:      'DM Sans', sans-serif;
+  --radius:    12px;
+  --glow:      0 0 40px rgba(93,255,182,0.15);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+#cursor {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .2s, height .2s, background .2s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  width: 36px; height: 36px;
+  border: 1.5px solid rgba(93,255,182,0.5);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform .12s ease, width .2s, height .2s;
+}
+body:has(a:hover) #cursor,
+body:has(button:hover) #cursor,
+body:has(.project-card:hover) #cursor { width: 20px; height: 20px; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: .4;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+.tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 4px 10px;
+  border: 1px solid rgba(93,255,182,0.3);
+  border-radius: 4px;
+  display: inline-block;
+}
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.section-sub {
+  color: var(--muted);
+  font-size: .95rem;
+  max-width: 520px;
+  line-height: 1.65;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,15,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background .3s;
+}
+.nav-logo {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -.02em;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--accent);
+  transform: scaleX(0); transition: transform .3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-cta {
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--accent);
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  cursor: none;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity .2s, box-shadow .2s;
+}
+.nav-cta:hover { opacity: .85; box-shadow: var(--glow); }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; z-index: 101; padding: 4px; }
+.hamburger span { width: 24px; height: 2px; background: var(--text); transition: all 0.3s ease; pointer-events: none; }
+
+.back-to-top {
+  position: fixed; bottom: 32px; right: 32px; width: 44px; height: 44px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 50%;
+  color: var(--text); font-size: 1.2rem; display: flex; align-items: center; justify-content: center;
+  cursor: none; z-index: 90; opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s, border-color .3s;
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { border-color: var(--accent); transform: translateY(-4px); color: var(--accent); }
+
+#hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(93,255,182,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93,255,182,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .25;
+  pointer-events: none;
+}
+.orb1 { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; animation: drift 12s ease-in-out infinite alternate; }
+.orb2 { width: 400px; height: 400px; background: var(--accent3); bottom: -80px; left: -80px; animation: drift 16s ease-in-out infinite alternate-reverse; }
+
+@keyframes drift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(40px, 30px) scale(1.08); }
+}
+
+.hero-content { text-align: center; position: relative; z-index: 1; }
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: .8rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp .8s .2s forwards;
+}
+.hero-name {
+  font-family: var(--display);
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.04em;
+  opacity: 0;
+  animation: fadeUp .8s .4s forwards;
+}
+.hero-name .line2 { color: var(--accent); display: block; }
+.hero-role {
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--muted);
+  margin-top: 20px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fadeUp .8s .6s forwards;
+}
+.hero-role em { color: var(--text); font-style: normal; font-weight: 500; }
+.hero-cta-group {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  margin-top: 40px;
+  opacity: 0;
+  animation: fadeUp .8s .8s forwards;
+}
+.btn-primary {
+  font-family: var(--mono);
+  font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--bg); background: var(--accent);
+  border: none; padding: 14px 32px; border-radius: 8px;
+  cursor: none; text-decoration: none; font-weight: 600;
+  transition: box-shadow .3s, transform .2s;
+}
+.btn-primary:hover { box-shadow: 0 0 30px rgba(93,255,182,0.4); transform: translateY(-2px); }
+.btn-ghost {
+  font-family: var(--mono);
+  font-size: .82rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text); background: transparent;
+  border: 1px solid var(--border); padding: 14px 32px; border-radius: 8px;
+  cursor: none; text-decoration: none;
+  transition: border-color .3s, transform .2s;
+}
+.btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeIn 1s 1.4s forwards;
+}
+.hero-scroll span {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--muted);
+}
+.scroll-line {
+  width: 1px; height: 48px; background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: .4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.15); }
+}
+
+.hero-stats {
+  display: flex; gap: 48px; justify-content: center; flex-wrap: wrap;
+  margin-top: 64px;
+  opacity: 0; animation: fadeUp .8s 1s forwards;
+  padding: 24px 48px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(10px);
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: var(--display);
+  font-size: 2rem; font-weight: 800;
+  color: var(--accent); line-height: 1;
+}
+.stat-label {
+  font-family: var(--mono); font-size: .7rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-top: 4px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+section { padding: 100px 0; position: relative; }
+.section-head { margin-bottom: 60px; }
+.section-head .tag { margin-bottom: 16px; }
+
+#about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--muted); line-height: 1.75; font-size: .95rem;
+  margin-bottom: 16px;
+}
+.about-text p:last-child { margin-bottom: 0; }
+.about-text strong { color: var(--text); font-weight: 500; }
+
+.skills-panel { display: flex; flex-direction: column; gap: 16px; }
+.skill-item { position: relative; }
+.skill-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.skill-name {
+  font-family: var(--mono); font-size: .82rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text);
+}
+.skill-pct {
+  font-family: var(--mono); font-size: .75rem; color: var(--accent);
+}
+.skill-bar {
+  height: 3px; background: var(--border); border-radius: 2px; overflow: hidden;
+}
+.skill-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent3));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 1.2s cubic-bezier(.16,1,.3,1);
+}
+.skill-fill.animate { transform: scaleX(1); }
+
+.tool-cloud {
+  margin-top: 32px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.tool-pill {
+  font-family: var(--mono); font-size: .75rem; letter-spacing: .06em;
+  color: var(--muted); border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 20px;
+  transition: color .2s, border-color .2s;
+}
+.tool-pill:hover { color: var(--accent); border-color: rgba(93,255,182,0.3); }
+
+#experience {}
+
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before {
+  content: '';
+  position: absolute; left: 0; top: 8px; bottom: 0;
+  width: 1px; background: var(--border);
+}
+
+.timeline-item {
+  position: relative; margin-bottom: 52px;
+  opacity: 0; transform: translateX(-16px);
+  transition: opacity .6s, transform .6s;
+}
+.timeline-item.visible { opacity: 1; transform: translateX(0); }
+.timeline-item:last-child { margin-bottom: 0; }
+
+.timeline-dot {
+  position: absolute; left: -40px; top: 6px;
+  width: 16px; height: 16px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--accent);
+  box-shadow: 0 0 12px rgba(93,255,182,0.4);
+}
+.timeline-dot.current { background: var(--accent); }
+
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  transition: border-color .3s, box-shadow .3s;
+}
+.exp-card:hover { border-color: rgba(93,255,182,0.2); box-shadow: var(--glow); }
+
+.exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 8px; }
+.exp-title-group { display: flex; align-items: center; gap: 16px; text-decoration: none; }
+.exp-logo { width: 56px; height: 56px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; padding: 8px; transition: all 0.3s ease; }
+.exp-card:hover .exp-logo { border-color: var(--accent); transform: scale(1.08); box-shadow: 0 4px 15px rgba(93,255,182,0.15); }
+.exp-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
+.exp-company { font-family: var(--display); font-size: 1.3rem; font-weight: 700; color: var(--text); transition: color .3s ease; }
+.exp-title-group:hover .exp-company { color: var(--accent); }
+.exp-period {
+  font-family: var(--mono); font-size: .75rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent);
+  background: rgba(93,255,182,0.08); border: 1px solid rgba(93,255,182,0.2);
+  padding: 4px 10px; border-radius: 4px;
+}
+.exp-role { color: var(--muted); font-size: .88rem; margin-bottom: 20px; }
+.exp-role span { color: var(--text); font-weight: 500; }
+
+.exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.exp-bullets li {
+  color: var(--muted); font-size: .9rem; line-height: 1.6;
+  padding-left: 18px; position: relative;
+}
+.exp-bullets li::before {
+  content: '▹';
+  position: absolute; left: 0;
+  color: var(--accent); font-size: .75rem; top: 2px;
+}
+
+.exp-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+.tech-badge {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--accent3);
+  border: 1px solid rgba(107,140,255,0.25);
+  background: rgba(107,140,255,0.07);
+  padding: 3px 10px; border-radius: 4px;
+}
+
+#projects { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.filter-bar { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
+.filter-btn {
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  background: transparent; border: 1px solid var(--border);
+  padding: 9px 20px; border-radius: 6px; cursor: none;
+  transition: all .2s;
+}
+.filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+.filter-btn.active {
+  color: var(--bg); background: var(--accent);
+  border-color: var(--accent); box-shadow: 0 0 20px rgba(93,255,182,0.25);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.project-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  position: relative; overflow: hidden;
+  cursor: none;
+  transition: border-color .3s, transform .3s, box-shadow .3s;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.project-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(93,255,182,0.04), transparent 60%);
+  opacity: 0; transition: opacity .3s;
+}
+.project-card:hover {
+  border-color: rgba(93,255,182,0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), var(--glow);
+}
+.project-card:hover::before { opacity: 1; }
+
+.project-card.hidden {
+  display: none;
+}
+.project-card.fade-in {
+  animation: cardFadeIn .4s ease forwards;
+}
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.project-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  display: grid; place-items: center;
+  font-size: 1.3rem;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+.project-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 9px;
+}
+.project-type-badge {
+  position: absolute; top: 20px; right: 20px;
+  font-family: var(--mono); font-size: .65rem; letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 3px 8px; border-radius: 4px;
+}
+.badge-mobile { color: var(--accent); background: rgba(93,255,182,0.1); border: 1px solid rgba(93,255,182,0.2); }
+.badge-enterprise { color: var(--accent2); background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.2); }
+
+.project-title {
+  font-family: var(--display); font-size: 1.1rem; font-weight: 700;
+}
+.project-desc { color: var(--muted); font-size: .87rem; line-height: 1.65; flex: 1; }
+.project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.stack-tag {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+  border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px;
+}
+.project-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: .75rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--accent);
+  text-decoration: none; margin-top: auto;
+  transition: gap .2s;
+}
+.project-link:hover { gap: 10px; }
+.project-link svg { width: 14px; height: 14px; }
+
+/* Makes the entire project card clickable */
+.project-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+/* ── CERTIFICATIONS ────────────────────────────────────────── */
+#certifications {}
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  display: flex; gap: 16px; align-items: flex-start;
+  transition: border-color .3s;
+}
+.cert-card:hover { border-color: rgba(93,255,182,0.2); }
+.cert-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; border: 1px solid var(--border);
+  display: grid; place-items: center; flex-shrink: 0;
+  padding: 4px;
+  transition: transform .3s ease;
+}
+.cert-card:hover .cert-icon { transform: scale(1.1); }
+.cert-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.cert-body { flex: 1; }
+.cert-name { font-size: .9rem; font-weight: 600; line-height: 1.4; margin-bottom: 4px; }
+.cert-org { font-family: var(--mono); font-size: .72rem; color: var(--muted); letter-spacing: .06em; }
+.cert-year {
+  font-family: var(--mono); font-size: .7rem; color: var(--accent);
+  margin-top: 6px;
+}
+
+/* ── MODAL ─────────────────────────────────────────────────── */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+.modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(8px);
+  cursor: none;
+}
+.modal-content {
+  position: relative;
+  z-index: 201;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  transform: scale(0.95) translateY(10px);
+  transition: all .3s ease;
+}
+.modal.active .modal-content {
+  transform: scale(1) translateY(0);
+}
+.modal-close {
+  position: absolute; top: 12px; right: 12px;
+  background: none; border: none; color: var(--muted);
+  font-size: 1.8rem; cursor: none; line-height: 1;
+  transition: color .2s;
+}
+.modal-close:hover { color: var(--text); }
+.modal-header { margin-bottom: 24px; }
+.modal-logo { width: 64px; height: 64px; border-radius: 12px; margin: 0 auto 16px; border: 1px solid var(--border); padding: 4px; background: #fff; }
+.modal-header h3 { font-family: var(--display); font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+.modal-header p { color: var(--muted); font-size: .9rem; }
+.modal-links { display: flex; flex-direction: column; gap: 12px; }
+.modal-link {
+  display: block; padding: 14px; background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 8px;
+  text-decoration: none; color: var(--text); font-weight: 500;
+  transition: all .2s;
+}
+.modal-link:hover { border-color: var(--accent); background: rgba(93, 255, 182, 0.1); color: var(--accent); transform: translateY(-2px); }
+
+/* ── CONTACT ───────────────────────────────────────────────── */
+#contact { background: var(--surface); border-top: 1px solid var(--border); }
+.contact-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.contact-cta .section-title { margin-bottom: 16px; }
+.contact-cta p { color: var(--muted); line-height: 1.7; margin-bottom: 32px; font-size: .95rem; }
+.contact-links { display: flex; flex-direction: column; gap: 16px; }
+.contact-link-item {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 24px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); text-decoration: none;
+  transition: border-color .3s, transform .2s;
+}
+.contact-link-item:hover { border-color: rgba(93,255,182,0.3); transform: translateX(6px); }
+.cli-icon {
+  width: 38px; height: 38px; border-radius: 8px;
+  background: var(--surface2); border: 1px solid var(--border);
+  display: grid; place-items: center; font-size: 1rem; flex-shrink: 0;
+}
+.cli-label { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.cli-value { font-size: .9rem; color: var(--text); font-weight: 500; margin-top: 2px; }
+.cli-arrow { margin-left: auto; color: var(--muted); font-size: 1.1rem; }
+
+/* ── FOOTER ────────────────────────────────────────────────── */
+footer {
+  padding: 32px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+footer span em { color: var(--accent); font-style: normal; }
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  nav { padding: 16px 20px; }
+  .hamburger { display: flex; }
+  .nav-links {
+    position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
+    background: rgba(17, 17, 26, 0.98); backdrop-filter: blur(20px);
+    flex-direction: column; justify-content: center; align-items: center; gap: 40px;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 1px solid var(--border);
+  }
+  .nav-links.active { right: 0; }
+  .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--accent); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent); }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-stats { gap: 24px; padding: 20px 24px; }
+  .exp-header { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">polla<span>.</span>dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions" style="display: flex; align-items: center; gap: 16px;">
+    <a class="nav-cta" href="mailto:pollajoseph2018@gmail.com">Hire Me</a>
+    <div class="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="orb hero-orb orb1"></div>
+  <div class="orb hero-orb orb2"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Mobile &amp; Software Engineer · Cairo, Egypt</p>
+      <h1 class="hero-name">
+        Polla Joseph
+        <span class="line2">Labeeb</span>
+      </h1>
+      <p class="hero-role">Building <em>scalable mobile apps</em> &amp; <em>enterprise systems</em> with 8+ years of experience</p>
+
+      <div class="hero-cta-group">
+        <a class="btn-primary" href="#projects">View Projects</a>
+        <a class="btn-ghost" href="#" target="_blank">Download CV</a>
+        <a class="btn-ghost" href="#contact">Get In Touch</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Years Exp.</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Live Apps</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Employers</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Languages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">01 / About</span>
+      <h2 class="section-title">Crafting Software<br/>That Ships.</h2>
+      <p class="section-sub">From mobile streaming to enterprise automation — I build systems that actually work in production.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>Mobile Application Developer and Software Engineer</strong> with over 8 years of hands-on experience building cross-platform and native applications. Currently driving enterprise application development at <strong>Consolidated Contractors Company (CCC)</strong> in Cairo.</p>
+        <p>My work spans the full stack of mobile and desktop engineering — from <strong>Kotlin &amp; Flutter</strong> for consumer-facing apps to <strong>WPF .Net &amp; Visual FoxPro &amp; SQL Server</strong> for heavy enterprise systems. I believe great software is invisible: it just works.</p>
+        <p>Pursuing a Bachelor of Technology in <strong>Business Informatics &amp; Digital Transformation</strong> at Helwan National University (GPA: 3.57, graduating June 2026).</p>
+        <p>Languages spoken: <strong>Arabic</strong> (native), <strong>English</strong> (professional), French (elementary).</p>
+
+        <div class="tool-cloud" style="margin-top:24px;">
+          <span class="tool-pill">Android Studio</span>
+          <span class="tool-pill">IntelliJ IDEA</span>
+          <span class="tool-pill">VS Code</span>
+          <span class="tool-pill">Azure</span>
+          <span class="tool-pill">Power BI</span>
+          <span class="tool-pill">MySQL</span>
+          <span class="tool-pill">AWS</span>
+          <span class="tool-pill">GitHub</span>
+          <span class="tool-pill">Postman</span>
+          <span class="tool-pill">PyCharm</span>
+        </div>
+      </div>
+
+      <div class="skills-panel">
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Kotlin</span><span class="skill-pct">100%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="1"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Dart / Flutter</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">AI Automation</span><span class="skill-pct">87%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.87"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">SQL</span><span class="skill-pct">88%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.88"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">React Native</span><span class="skill-pct">77%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.77"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Visual FoxPro</span><span class="skill-pct">90%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Javascript</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Java</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">85%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.85"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">C# / .NET WPF</span><span class="skill-pct">93%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.93"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">C# / .NET Core</span><span class="skill-pct">78%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.78"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-header"><span class="skill-name">VBA / Excel</span><span class="skill-pct">80%</span></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="0.80"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">02 / Experience</span>
+      <h2 class="section-title">Where I've<br/>Worked.</h2>
+      <p class="section-sub">A trajectory from mobile media streaming to full-scale enterprise engineering.</p>
+    </div>
+
+    <div class="timeline">
+
+      <!-- Rehla -->
+       <div class="timeline-item">
+        <div class="timeline-dot current"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <a href="https://www.linkedin.com/company/rehla-outings-trips/?viewAsMember=true" target="_blank" class="exp-title-group">
+              <div class="exp-logo"><img src="Assets/rehlaAppLogo.webp" alt="Rehla Logo" /></div>
+              <div class="exp-company">Rehla</div>
+            </a>
+            <span class="exp-period">Jan 2025 – Present</span>
+          </div>
+          <p class="exp-role"><span>Chief Technology Officer & Co-Founder</span> · Full-time ·</p>
+          <ul class="exp-bullets">
+           <li>Direct the technological vision and engineering strategy for Egypt’s premier domestic tourism marketplace, aligning technical initiatives with business growth and market expansion.</li>
+           <li>Lead the architecture and development of scalable, high-performance mobile solutions using IOS Native and Native Android to ensure UI/UX excellence.</li>
+           <li>Design and manage secure, cloud-based backend infrastructure optimized for high-traffic seasonal demands and cost-efficiency.</li>
+           <li>Facilitate cross-functional alignment between Product, Marketing, and Operations to translate business objectives into robust technical requirements.</li>
+           <li>Cultivate a high-performance engineering culture by implementing CI/CD pipelines, automated testing, and Agile methodologies to accelerate delivery cycles.</li> </ul>
+          <div class="exp-tech">
+            <span class="tech-badge">Technology Management</span>
+            <span class="tech-badge">Technology Leadership</span>
+            <span class="tech-badge">SQL Server</span>
+            <span class="tech-badge">Managing Technical Personnel</span>
+            <span class="tech-badge">Google Cloud Platform</span>
+            <span class="tech-badge">Technical Staff Management</span>
+            <span class="tech-badge">Artificial Intelligence</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CCC -->
+      <div class="timeline-item">
+        <div class="timeline-dot current"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <a href="https://www.linkedin.com/company/consolidated-contractors-international-company/posts/?feedView=all" target="_blank" class="exp-title-group">
+              <div class="exp-logo"><img src="Assets/ccc.webp" alt="CCC Logo" /></div>
+              <div class="exp-company">Consolidated Contractors Company</div>
+            </a>
+            <span class="exp-period">Dec 2025 – Present</span>
+          </div>
+          <p class="exp-role"><span>Software Engineer</span> · Full-time · Fifth Settlement, New Cairo — On-site</p>
+          <ul class="exp-bullets">
+            <li>Developed and maintained enterprise desktop applications using <strong>Visual FoxPro</strong> and <strong>SQL Server</strong> for internal business workflows.</li>
+            <li>Created automated reporting tools and interactive dashboards using <strong>Excel VBA</strong> and <strong>Power BI</strong> to streamline data-driven decision making.</li>
+            <li>Built cross-platform mobile modules using <strong>Flutter &amp; Dart</strong> to extend legacy system accessibility to field teams.</li>
+          </ul>
+          <div class="exp-tech">
+            <span class="tech-badge">Visual FoxPro</span>
+            <span class="tech-badge">SQL Server</span>
+            <span class="tech-badge">Excel VBA</span>
+            <span class="tech-badge">Power BI</span>
+            <span class="tech-badge">WPF.NET</span>
+            <span class="tech-badge">Desktop Applications</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOfCO -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="exp-card">
+          <div class="exp-header">
+            <a href="https://www.linkedin.com/company/sofco-inc/posts/?feedView=all" target="_blank" class="exp-title-group">
+              <div class="exp-logo"><img src="Assets/sofco.jpg" alt="SOfCO Logo" /></div>
+              <div class="exp-company">SOfCO LLC</div>
+            </a>
+            <span class="exp-period">Jun 2024 – Sep 2025</span>
+          </div>
+          <p class="exp-role"><span>Mobile Developer</span> · Full-time · Tahrir Square, Cairo — On-site</p>
+          <ul class="exp-bullets">
+            <li>Developed and maintained <strong>Moshtar</strong>, <strong>TournamentX</strong>, and <strong>Funoon</strong> (Mobile &amp; TV) using Kotlin, Java, and XML, serving thousands of active users.</li>
+            <li>Collaborated on backend API integration using <strong>ASP.NET</strong> and <strong>Microsoft Azure</strong> within a Visual Studio environment.</li>
+            <li>Designed and implemented <strong>Android TV</strong> user interfaces specifically optimized for remote-navigation UX patterns for the Funoon TV application.</li>
+          </ul>
+          <div class="exp-tech">
+            <span class="tech-badge">Kotlin</span>
+            <span class="tech-badge">Java</span>
+            <span class="tech-badge">XML</span>
+            <span class="tech-badge">ASP.NET</span>
+            <span class="tech-badge">Azure</span>
+            <span class="tech-badge">Android TV</span>
+            <span class="tech-badge">Flutter</span>
+            <span class="tech-badge">Dart</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">03 / Projects</span>
+      <h2 class="section-title">Things I've<br/>Built.</h2>
+      <p class="section-sub">Live apps and enterprise tools — filterable by category.</p>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+      <button class="filter-btn" data-filter="enterprise">Enterprise Software</button>
+    </div>
+
+    <div class="projects-grid" id="projectsGrid">
+
+    <!-- Rehla -->
+      <div class="project-card fade-in" data-category="mobile" data-modal-target="#rehla-modal">
+        <span class="project-type-badge badge-mobile">Mobile App</span>
+        <div class="project-icon"><img src="Assets/rehlaAppLogo.webp" alt="Rehla Logo" /></div>
+        <h3 class="project-title">Rehla</h3>
+        <p class="project-desc">A comprehensive tourism platform with real-time chat, secure payments (Fawry &amp; InstaPay), multilingual support across 7 languages, and income tracking dashboards.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Flutter</span><span class="stack-tag">Dart</span><span class="stack-tag">Fawry</span><span class="stack-tag">InstaPay</span>
+        </div>
+      </div>
+
+      <!-- Mute Mate -->
+      <div class="project-card fade-in" data-category="mobile">
+        <span class="project-type-badge badge-mobile">Mobile App</span>
+        <div class="project-icon"><img src="Assets/muteMate.png" alt="Funoon Mobile Logo" /></div>
+        <h3 class="project-title">Mute Mate</h3>
+          <p class="project-desc">An accessibility-focused communication platform for the deaf and mute community in Egypt, featuring real-time AI-driven translation tools and cross-platform mobile support built with Flutter and Django.</p>        <div class="project-stack">
+          <span class="stack-tag">Flutter</span> <span class="stack-tag">Automation</span><span class="stack-tag">Dart</span><span class="stack-tag">AI</span><span class="stack-tag">Python</span>
+        </div>
+        <a class="project-link" href="https://github.com/PollaJoseph/Mute-Mate" target="_blank">Play Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+
+      <!-- Funoon Mobile -->
+      <div class="project-card fade-in" data-category="mobile">
+        <span class="project-type-badge badge-mobile">Mobile App</span>
+        <div class="project-icon"><img src="Assets/funoonAppLogo.webp" alt="Funoon Mobile Logo" /></div>
+        <h3 class="project-title">Funoon — Mobile</h3>
+        <p class="project-desc">A full-featured movie and TV show streaming app with live TV channels, an extensive Arabic content library, and real-time API integration built for SOfCO LLC.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Kotlin</span><span class="stack-tag">Java</span><span class="stack-tag">XML</span><span class="stack-tag">REST API</span>
+        </div>
+        <a class="project-link" href="https://play.google.com/store/apps/details?id=org.SOfCO.funoon" target="_blank">Play Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+      <!-- Funoon TV -->
+      <div class="project-card fade-in" data-category="mobile">
+        <span class="project-type-badge badge-mobile">Android TV</span>
+        <div class="project-icon"><img src="Assets/funoonAppLogo.webp" alt="Funoon Android TV Logo" /></div>
+        <h3 class="project-title">Funoon — Android TV</h3>
+        <p class="project-desc">Optimized version of Funoon for Android TV interfaces, featuring seamless D-pad navigation, a rich entertainment library, and a tailored 10-foot UX.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Kotlin</span><span class="stack-tag">XML</span><span class="stack-tag">TV Navigation</span>
+        </div>
+        <a class="project-link" href="https://play.google.com/store/apps/details?id=org.SOfCO.funoon.TV" target="_blank">Play Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+      <!-- Moshtar -->
+      <div class="project-card fade-in" data-category="mobile">
+        <span class="project-type-badge badge-mobile">Mobile App</span>
+        <div class="project-icon"><img src="Assets/moshtarAppLogo.webp" alt="Moshtar Logo" /></div>
+        <h3 class="project-title">Moshtar</h3>
+        <p class="project-desc">A quotes and sayings app with a Home Screen Widget, daily push notifications based on user preferences, and dynamic content via API integration.</p>
+        <div class="project-stack">
+          <span class="stack-tag">Kotlin</span><span class="stack-tag">XML</span><span class="stack-tag">Widgets</span><span class="stack-tag">FCM</span>
+        </div>
+        <a class="project-link" href="https://play.google.com/store/apps/details?id=org.SOfCO.moshtar" target="_blank">Play Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+      <!-- TournamentX -->
+      <div class="project-card fade-in" data-category="mobile">
+        <span class="project-type-badge badge-mobile">Mobile App</span>
+        <div class="project-icon"><img src="Assets/TournamentX.webp" alt="TournamentX Logo" /></div>
+        <h3 class="project-title">TournamentX</h3>
+          <p class="project-desc">A real-time tournament management and scoring tool featuring instant bracket updates, secure multi-judge synchronization, and automated leaderboard calculations via a centralized API.</p>        <div class="project-stack">
+          <span class="stack-tag">Kotlin</span><span class="stack-tag">XML</span><span class="stack-tag">Android</span>
+        </div>
+        <a class="project-link" href="https://play.google.com/store/apps/details?id=org.SOfCO.TournamentX" target="_blank">Play Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+
+      <!-- Employee Manager -->
+      <div class="project-card fade-in" data-category="enterprise">
+        <span class="project-type-badge badge-enterprise">Enterprise</span>
+        <div class="project-icon"><img src="Assets/ccc.webp" alt="Rehla Logo" /></div>
+        <h3 class="project-title">Employee Manager</h3>
+        <p class="project-desc">An in-house HR system for CCC managing employee records, salary classification (monthly/daily), payment methods, and detailed banking &amp; branch tracking.</p>
+        <div class="project-stack">
+          <span class="stack-tag">FoxPro</span><span class="stack-tag">SQL Server</span><span class="stack-tag">C#</span> <span class="stack-tag">WPF .Net</span>
+        </div>
+        <a class="project-link" href="#" style="visibility:hidden;">Internal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+      <!-- Cost Code -->
+      <div class="project-card fade-in" data-category="enterprise">
+        <span class="project-type-badge badge-enterprise">Enterprise</span>
+        <div class="project-icon"><img src="Assets/ccc.webp" alt="Rehla Logo" /></div>
+        <h3 class="project-title">Cost Code Modifier</h3>
+          <p class="project-desc">A construction management tool for tracking site resources through dynamic Cost Codes, enabling seamless modification and creation of codes across Purchase Orders (PO) and Store Receive Vouchers (SRV) for precise budget control.</p>        <div class="project-stack">
+          <span class="stack-tag">FoxPro</span><span class="stack-tag">SQL Server</span><span class="stack-tag">C#</span> <span class="stack-tag">WPF .Net</span>
+        </div>
+        <a class="project-link" href="#" style="visibility:hidden;">Internal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+      <!-- PayIT Auto-Fill -->
+      <div class="project-card fade-in" data-category="enterprise">
+        <span class="project-type-badge badge-enterprise">Enterprise</span>
+        <div class="project-icon"><img src="Assets/ccc.webp" alt="Rehla Logo" /></div>
+        <h3 class="project-title">PayIT Auto-Fill Utility</h3>
+        <p class="project-desc">An automation tool integrated with the PayIT payroll application that eliminates manual data entry by enabling bulk import from Excel and auto-populating all system fields.</p>
+        <div class="project-stack">
+          <span class="stack-tag">FoxPro</span><span class="stack-tag">Excel</span><span class="stack-tag">SQL</span><span class="stack-tag">VBA</span><span class="stack-tag">C#</span> <span class="stack-tag">WPF .Net</span>
+        </div>
+        <a class="project-link" href="#" style="visibility:hidden;">Internal <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="section-head">
+      <span class="tag">04 / Certifications</span>
+      <h2 class="section-title">Learning Never<br/>Stops.</h2>
+      <p class="section-sub">Formal credentials and professional training programs.</p>
+    </div>
+
+    <div class="certs-grid">
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/DEPI.webp" alt="MCIT Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Mobile App Developer</p>
+          <p class="cert-org">Ministry of Communications (MCIT), Egypt</p>
+          <p class="cert-year">2024</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/DEPI.webp" alt="SYE English Community Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Business English Track</p>
+          <p class="cert-org">SYE English Community &amp; MCIT Egypt</p>
+          <p class="cert-year">2024</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/ITIDA.jpg" alt="ITIDA Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Freelance Training Program</p>
+          <p class="cert-org">ITIDA &amp; EYouth Egypt</p>
+          <p class="cert-year">2024</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/hnu.webp" alt="Helwan University Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Business Intelligence &amp; Analytics</p>
+          <p class="cert-org">Helwan National University, Egypt</p>
+          <p class="cert-year">July 2024</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/banquw misr.png" alt="Google Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Fundamentals of Digital Marketing</p>
+          <p class="cert-org">Google &amp; Banque Misr</p>
+          <p class="cert-year">2025</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/skillUp.jpg" alt="Simplilearn Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Flutter Course</p>
+          <p class="cert-org">Simplilearn (SkillUP)</p>
+          <p class="cert-year">July 2024 · #6269087</p>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-icon"><img src="Assets/skillUp.jpg" alt="Simplilearn Logo" /></div>
+        <div class="cert-body">
+          <p class="cert-name">Android App Development Course</p>
+          <p class="cert-org">Simplilearn (SkillUP)</p>
+          <p class="cert-year">June 2024 · #6921603</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-cta">
+        <span class="tag" style="margin-bottom:16px;display:inline-block;">05 / Contact</span>
+        <h2 class="section-title">Let's Build<br/>Something.</h2>
+        <p>I'm open to full-time roles, freelance projects, and collaboration opportunities. If you have something in mind — reach out.</p>
+        <a class="btn-primary" href="mailto:pollajoseph2018@gmail.com">Send Me an Email</a>
+      </div>
+
+      <div class="contact-links">
+        <a class="contact-link-item" href="mailto:pollajoseph2018@gmail.com">
+          <div class="cli-icon">✉️</div>
+          <div>
+            <p class="cli-label">Email</p>
+            <p class="cli-value">pollajoseph2018@gmail.com</p>
+          </div>
+          <span class="cli-arrow">→</span>
+        </a>
+        <a class="contact-link-item" href="https://linkedin.com/in/polla-joseph-labeeb" target="_blank">
+          <div class="cli-icon">💼</div>
+          <div>
+            <p class="cli-label">LinkedIn</p>
+            <p class="cli-value">Polla Joseph Labeeb</p>
+          </div>
+          <span class="cli-arrow">→</span>
+        </a>
+        <a class="contact-link-item" href="https://github.com/pollajoseph" target="_blank">
+          <div class="cli-icon">🐙</div>
+          <div>
+            <p class="cli-label">GitHub</p>
+            <p class="cli-value">Polla Joseph</p>
+          </div>
+          <span class="cli-arrow">→</span>
+        </a>
+        <a class="contact-link-item" href="https://wa.me/201208980211" target="_blank">
+          <div class="cli-icon">💬</div>
+          <div>
+            <p class="cli-label">WhatsApp</p>
+            <p class="cli-value">+20 120 898 0211</p>
+          </div>
+          <span class="cli-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Polla Joseph Labeeb · <em>polla.dev</em></span>
+  <span>Cairo, Egypt 🇪🇬</span>
+</footer>
+
+<!-- REHLA MODAL -->
+<div class="modal" id="rehla-modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" title="Close modal">&times;</button>
+    <div class="modal-header">
+      <img src="Assets/rehlaAppLogo.webp" alt="Rehla Logo" class="modal-logo">
+      <h3>Download Rehla</h3>
+      <p>Choose your platform to download the app.</p>
+    </div>
+    <div class="modal-links">
+      <a href="https://play.google.com/store/apps/details?id=com.polla.rahla" target="_blank" class="modal-link">
+        Google Play Store
+      </a>
+      <a href="https://apps.apple.com/eg/app/rehla-outings-trips/id6753149665" target="_blank" class="modal-link">
+        Apple App Store
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="backToTop" class="back-to-top" title="Back to Top">↑</button>
+
+<script>
+/* ── CURSOR ──────────────────────────────────────────────────── */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+  rx += (mx - rx) * 0.14;
+  ry += (my - ry) * 0.14;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animCursor);
+})();
+
+/* ── SKILL BAR ANIMATION ─────────────────────────────────────── */
+const skillObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.skill-fill').forEach(fill => {
+        const w = fill.dataset.width;
+        fill.style.transform = `scaleX(${w})`;
+        fill.classList.add('animate');
+      });
+      skillObs.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+const skillPanel = document.querySelector('.skills-panel');
+if (skillPanel) skillObs.observe(skillPanel);
+
+/* ── TIMELINE SCROLL REVEAL ──────────────────────────────────── */
+const tlObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 120);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.timeline-item').forEach(el => tlObs.observe(el));
+
+/* ── PROJECT FILTER ──────────────────────────────────────────── */
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectCards = document.querySelectorAll('.project-card');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+    projectCards.forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      if (match) {
+        card.classList.remove('hidden');
+        // Trigger reflow for animation
+        void card.offsetWidth;
+        card.classList.add('fade-in');
+        card.addEventListener('animationend', () => card.classList.remove('fade-in'), { once: true });
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('fade-in');
+      }
+    });
+  });
+});
+
+/* ── GENERAL SCROLL REVEAL ───────────────────────────────────── */
+const revealEls = document.querySelectorAll('.cert-card, .contact-link-item');
+const revObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }, (i % 4) * 80);
+      revObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .5s ease, transform .5s ease';
+  revObs.observe(el);
+});
+
+/* ── MODAL LOGIC ─────────────────────────────────────────────── */
+const modalTriggers = document.querySelectorAll('[data-modal-target]');
+modalTriggers.forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const modalId = trigger.dataset.modalTarget;
+    const modal = document.querySelector(modalId);
+    if (modal) modal.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.modal-close, .modal-overlay').forEach(el => {
+  el.addEventListener('click', () => {
+    el.closest('.modal').classList.remove('active');
+  });
+});
+
+/* ── NAV ACTIVE STATE ────────────────────────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--text)' : '';
+  });
+}, { passive: true });
+
+/* ── MOBILE MENU & BACK TO TOP ───────────────────────────────── */
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-links');
+const backToTopBtn = document.getElementById('backToTop');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navMenu.classList.toggle('active');
+});
+
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+  });
+});
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 500) backToTopBtn.classList.add('visible');
+  else backToTopBtn.classList.remove('visible');
+});
+
+backToTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>
