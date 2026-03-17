@@ -62,7 +62,8 @@ body {
 }
 body:has(a:hover) #cursor,
 body:has(button:hover) #cursor,
-body:has(.project-card:hover) #cursor { width: 20px; height: 20px; }
+body:has(.project-card:hover) #cursor,
+body:has(.skill-item:hover) #cursor { width: 20px; height: 20px; }
 
 /* ── NOISE TEXTURE OVERLAY ─────────────────────────────────── */
 body::before {
@@ -331,12 +332,27 @@ section { padding: 100px 0; position: relative; }
 .about-text p:last-child { margin-bottom: 0; }
 .about-text strong { color: var(--text); font-weight: 500; }
 
-.skills-panel { display: flex; flex-direction: column; gap: 16px; }
-.skill-item { position: relative; }
+.skills-panel { display: flex; flex-direction: column; gap: 8px; }
+.skill-item { 
+  position: relative; opacity: 0; transform: translateY(15px); 
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+}
+.skill-item.visible { opacity: 1; transform: translateY(0); }
+.skill-item.visible:hover {
+  transform: translateX(6px);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(93, 255, 182, 0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
 .skill-header {
   display: flex; justify-content: space-between; align-items: center;
   margin-bottom: 8px;
 }
+.skill-title-group { display: flex; align-items: center; gap: 10px; }
+.skill-icon { width: 28px; height: 28px; object-fit: contain; border-radius: 4px; }
 .skill-name {
   font-family: var(--mono); font-size: .82rem;
   letter-spacing: .08em; text-transform: uppercase;
@@ -354,7 +370,9 @@ section { padding: 100px 0; position: relative; }
   transform: scaleX(0); transform-origin: left;
   transition: transform 1.2s cubic-bezier(.16,1,.3,1);
 }
-.skill-fill.animate { transform: scaleX(1); }
+.skill-item.visible:hover .skill-fill {
+  box-shadow: 0 0 12px rgba(93, 255, 182, 0.6);
+}
 
 .tool-cloud {
   margin-top: 32px;
@@ -809,51 +827,123 @@ footer span em { color: var(--accent); font-style: normal; }
 
       <div class="skills-panel">
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Kotlin</span><span class="skill-pct">100%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/Kotlin.png" alt="Kotlin" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">Kotlin</span>
+            </div>
+            <span class="skill-pct">100%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="1"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Dart / Flutter</span><span class="skill-pct">90%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/Flutter.png" alt="Flutter" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">Dart / Flutter</span>
+            </div>
+            <span class="skill-pct">90%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.90"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">AI Automation</span><span class="skill-pct">87%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/n8n.png" alt="AI" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">AI Automation</span>
+            </div>
+            <span class="skill-pct">87%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.87"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">SQL</span><span class="skill-pct">88%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/SQL.png" alt="SQL" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">SQL</span>
+            </div>
+            <span class="skill-pct">88%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.88"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">React Native</span><span class="skill-pct">77%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/React.png" alt="React Native" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">React Native</span>
+            </div>
+            <span class="skill-pct">77%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.77"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Visual FoxPro</span><span class="skill-pct">90%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/FoxPro.png" alt="FoxPro" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">Visual FoxPro</span>
+            </div>
+            <span class="skill-pct">90%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.90"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Javascript</span><span class="skill-pct">85%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/javascript.png" alt="JS" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">Javascript</span>
+            </div>
+            <span class="skill-pct">85%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.85"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Java</span><span class="skill-pct">85%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/Java.png" alt="Java" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">Java</span>
+            </div>
+            <span class="skill-pct">85%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.85"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">85%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/Python.png" alt="Python" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">Python</span>
+            </div>
+            <span class="skill-pct">85%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.85"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">C# / .NET WPF</span><span class="skill-pct">93%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/wpf.png" alt="C#" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">C# / .NET WPF</span>
+            </div>
+            <span class="skill-pct">93%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.93"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">C# / .NET Core</span><span class="skill-pct">78%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/dot Net.png" alt=".NET" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">C# / .NET Core</span>
+            </div>
+            <span class="skill-pct">78%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.78"></div></div>
         </div>
         <div class="skill-item">
-          <div class="skill-header"><span class="skill-name">VBA / Excel</span><span class="skill-pct">80%</span></div>
+          <div class="skill-header">
+            <div class="skill-title-group">
+              <img src="Assets/Excel.png" alt="Excel" class="skill-icon" onerror="this.style.display='none'" />
+              <span class="skill-name">VBA / Excel</span>
+            </div>
+            <span class="skill-pct">80%</span>
+          </div>
           <div class="skill-bar"><div class="skill-fill" data-width="0.80"></div></div>
         </div>
       </div>
@@ -1290,10 +1380,15 @@ document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; })
 const skillObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting) {
-      document.querySelectorAll('.skill-fill').forEach(fill => {
-        const w = fill.dataset.width;
-        fill.style.transform = `scaleX(${w})`;
-        fill.classList.add('animate');
+      const skillItems = document.querySelectorAll('.skill-item');
+      skillItems.forEach((item, index) => {
+        setTimeout(() => {
+          item.classList.add('visible');
+          const fill = item.querySelector('.skill-fill');
+          if (fill) {
+            fill.style.transform = `scaleX(${fill.dataset.width})`;
+          }
+        }, index * 80); // Stagger animation delay of 80ms per item
       });
       skillObs.disconnect();
     }
