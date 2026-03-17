@@ -334,8 +334,8 @@ section { padding: 100px 0; position: relative; }
 
 .skills-panel { display: flex; flex-direction: column; gap: 8px; }
 .skill-item { 
-  position: relative; opacity: 0; transform: translateY(15px); 
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+  position: relative; opacity: 0; transform: translateY(20px); 
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
   padding: 10px 16px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -683,7 +683,9 @@ section { padding: 100px 0; position: relative; }
   width: 38px; height: 38px; border-radius: 8px;
   background: var(--surface2); border: 1px solid var(--border);
   display: grid; place-items: center; font-size: 1rem; flex-shrink: 0;
+  padding: 8px;
 }
+.cli-icon img { width: 100%; height: 100%; object-fit: contain; }
 .cli-label { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .cli-value { font-size: .9rem; color: var(--text); font-weight: 500; margin-top: 2px; }
 .cli-arrow { margin-left: auto; color: var(--muted); font-size: 1.1rem; }
@@ -842,9 +844,9 @@ footer span em { color: var(--accent); font-style: normal; }
               <img src="Assets/Flutter.png" alt="Flutter" class="skill-icon" onerror="this.style.display='none'" />
               <span class="skill-name">Dart / Flutter</span>
             </div>
-            <span class="skill-pct">90%</span>
+            <span class="skill-pct">100%</span>
           </div>
-          <div class="skill-bar"><div class="skill-fill" data-width="0.90"></div></div>
+          <div class="skill-bar"><div class="skill-fill" data-width="1"></div></div>
         </div>
         <div class="skill-item">
           <div class="skill-header">
@@ -1294,7 +1296,7 @@ footer span em { color: var(--accent); font-style: normal; }
 
       <div class="contact-links">
         <a class="contact-link-item" href="mailto:pollajoseph2018@gmail.com">
-          <div class="cli-icon">✉️</div>
+          <div class="cli-icon"><img src="Assets/email.png" alt="Email" onerror="this.style.display='none'" /></div>
           <div>
             <p class="cli-label">Email</p>
             <p class="cli-value">pollajoseph2018@gmail.com</p>
@@ -1302,7 +1304,7 @@ footer span em { color: var(--accent); font-style: normal; }
           <span class="cli-arrow">→</span>
         </a>
         <a class="contact-link-item" href="https://linkedin.com/in/polla-joseph-labeeb" target="_blank">
-          <div class="cli-icon">💼</div>
+          <div class="cli-icon"><img src="Assets/LinkedIn.png" alt="LinkedIn" onerror="this.style.display='none'" /></div>
           <div>
             <p class="cli-label">LinkedIn</p>
             <p class="cli-value">Polla Joseph Labeeb</p>
@@ -1310,7 +1312,7 @@ footer span em { color: var(--accent); font-style: normal; }
           <span class="cli-arrow">→</span>
         </a>
         <a class="contact-link-item" href="https://github.com/pollajoseph" target="_blank">
-          <div class="cli-icon">🐙</div>
+          <div class="cli-icon"><img src="Assets/Github.png" alt="GitHub" onerror="this.style.display='none'" /></div>
           <div>
             <p class="cli-label">GitHub</p>
             <p class="cli-value">Polla Joseph</p>
@@ -1318,7 +1320,7 @@ footer span em { color: var(--accent); font-style: normal; }
           <span class="cli-arrow">→</span>
         </a>
         <a class="contact-link-item" href="https://wa.me/201208980211" target="_blank">
-          <div class="cli-icon">💬</div>
+          <div class="cli-icon"><img src="Assets/Whats App.png" alt="WhatsApp" onerror="this.style.display='none'" /></div>
           <div>
             <p class="cli-label">WhatsApp</p>
             <p class="cli-value">+20 120 898 0211</p>
@@ -1388,7 +1390,7 @@ const skillObs = new IntersectionObserver((entries) => {
           if (fill) {
             fill.style.transform = `scaleX(${fill.dataset.width})`;
           }
-        }, index * 80); // Stagger animation delay of 80ms per item
+        }, index * 100); // Stagger animation delay of 100ms per item
       });
       skillObs.disconnect();
     }
